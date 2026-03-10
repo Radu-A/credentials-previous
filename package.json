@@ -4,7 +4,7 @@
   "description": "",
   "license": "ISC",
   "author": "Radu-A",
-  "type": "commonjs",
+  "type": "module",
   "main": "./src/index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
@@ -24,6 +24,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.4.0",
     "@types/pg": "^8.18.0",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }
 }

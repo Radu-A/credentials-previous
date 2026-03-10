@@ -1,5 +1,4 @@
 services:
-  # "servicio postgres" según enunciado
   postgres:
     image: postgres:15-alpine
     container_name: postgres_db
@@ -14,13 +13,13 @@ services:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
 
-  # "servicio app" según enunciado
   app:
     build: .
     container_name: node_app
     ports:
       - "3000:3000"
     environment:
+      # Gives an environment variable that we can use
       DATABASE_URL: postgres://${DB_USER:-user}:${DB_PASSWORD:-pass}@postgres:5432/${DB_NAME:-sync_db}
     depends_on:
       - postgres
