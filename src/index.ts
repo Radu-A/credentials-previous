@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(addRequestId);
 app.use(httpLogger);
 
-app.use("/sync", router);
+app.use("", router);
 
 app.use(errorHandler);
 

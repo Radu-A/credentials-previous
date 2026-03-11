@@ -1,6 +1,6 @@
 // validator.ts
 import { Request, Response, NextFunction } from "express";
-import { EMAIL_REGEX, ConnectedUser } from "../model";
+import { EMAIL_REGEX, ConnectedUser } from "../models";
 
 export const validateUserSync = (
   req: Request<{}, {}, ConnectedUser>, // We type the body with our interface

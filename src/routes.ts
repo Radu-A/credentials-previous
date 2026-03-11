@@ -5,7 +5,7 @@ import { validateUserSync } from "./middlewares/validator";
 const router = Router();
 
 router.post(
-  "/user",
+  "/sync/user",
   validateUserSync,
   async (req: Request, res: Response, next: NextFunction) => {
     const { credential, email, name } = req.body;
@@ -28,6 +28,29 @@ router.post(
     } catch (error) {
       // Delegamos el error al middleware global
       next(error);
+    }
+  },
+);
+
+router.get(
+  "/health",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Verificamos que el pool puede comunicarse con la DB
+      await pool.query("SELECT 1");
+
+      res.status(200).json({
+        status: "UP",
+        database: "connected",
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      // En un healthcheck suele ser mejor devolver el 503 directamente
+      // en lugar de pasarlo al next() para no saturar los logs de errores generales
+      res.status(503).json({
+        status: "DOWN",
+        database: "disconnected",
+      });
     }
   },
 );
